@@ -1,4 +1,4 @@
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
 
 # Allow our mode to be specified before the args.
 my %*SUB-MAIN-OPTS = :named-anywhere;
