@@ -1,4 +1,5 @@
 Revision history for App:SudokuHelper
 
 {{$NEXT}}
+    - Extract script functionality to helper lib
     - Adpot mi6

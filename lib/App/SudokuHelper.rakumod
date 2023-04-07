@@ -1,0 +1,42 @@
+unit class App::SudokuHelper;
+
+# $sum - total we're trying to get to
+# $count - if present, limit to entries with that many components
+# $n - if present, skip those numbers
+# $sandwich - if present, skip 1 and 9
+# :x - sequence must contain the number of digits present as a digit.
+
+our sub MAIN-handler-combo(Int $sum, Int $count?, Str :$n is copy = "", Bool :s(:$sandwich)=False, Bool :$sequence, Bool :$x=False) is export  {
+    $n = $n ~ "19" if $sandwich;
+
+    my @counts = $count ?? [$count] !! 1..9;
+
+    my @digits = (1..9).grep({ not $n.comb.grep($_)});
+
+    for @counts -> $length {
+        # need a copy for -x work below
+        for @digits.combinations($length) -> $combo is copy {
+            next unless $combo.sum == $sum;
+            if $sequence.DEFINITE {
+                if $sequence {
+                    next unless ?$combo.rotor(2 => -1).map(-> ($a, $b) { $b - $a == 1 }).all
+                } else  {
+                    next if     ?$combo.rotor(2 => -1).map(-> ($a, $b) { $b - $a == 1 }).all
+                }
+            }
+            if $x {
+                my $size = $combo.elems;
+                my $pos = $combo.first($size, :k);
+                next unless $pos.DEFINITE;
+                if $pos > 0 {
+                    # Can't splice a list.
+                    my $c = $combo.Array;
+                    $c.splice($pos, 1);
+                    $c.unshift: $size;
+                    $combo = $c.List;
+                }
+            }
+            say $combo.join(' ');
+        }
+    }
+}
