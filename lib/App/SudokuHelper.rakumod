@@ -13,6 +13,8 @@ our sub MAIN-handler-combo(Int $sum, Int $count?, Str :$n is copy = "", Bool :s(
 
     my @digits = (1..9).grep({ not $n.comb.grep($_)});
 
+    my @retvals;
+
     for @counts -> $length {
         # need a copy for -x work below
         for @digits.combinations($length) -> $combo is copy {
@@ -36,7 +38,8 @@ our sub MAIN-handler-combo(Int $sum, Int $count?, Str :$n is copy = "", Bool :s(
                     $combo = $c.List;
                 }
             }
-            say $combo.join(' ');
+            @retvals.push: $combo.join(' ');
         }
     }
+    return @retvals.join("\n");
 }

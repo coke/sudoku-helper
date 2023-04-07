@@ -6,5 +6,5 @@ use App::SudokuHelper;
 my %*SUB-MAIN-OPTS = :named-anywhere;
 
 sub MAIN("combo", Int $sum, Int $count?, Str :$n is copy = "", Bool :s(:$sandwich)=False, Bool :$sequence, Bool :$x=False) {
-    MAIN-handler-combo($sum, $count, :$n, :$sandwich, :$sequence, :$x);
+    say MAIN-handler-combo($sum, $count, :$n, :$sandwich, :$sequence, :$x);
 }
