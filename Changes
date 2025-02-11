@@ -2,6 +2,9 @@ Revision history for App:SudokuHelper
 
 {{$NEXT}}
 
+0.9.2  2025-02-10T21:51:18-05:00
+    - Support sandwich with reduced digit set
+
 0.9.1  2023-04-07T16:18:35-04:00
     - Add tests
     - Extract script functionality to helper lib

@@ -1,7 +1,7 @@
 use Test;
 use App::SudokuHelper;
 
-plan 8;
+plan 9;
 
 is MAIN-handler-combo(13), chomp(q:to/EOS/), "combo, any length";
 4 9
@@ -51,6 +51,11 @@ is MAIN-handler-combo(13, 2, :s), chomp(q:to/EOS/), "combo, sandwich, specific l
 6 7
 EOS
 
+is MAIN-handler-combo(9, :s, :n<789>), chomp(q:to/EOS/), "combo, sandwich, 1..6";
+4 5
+2 3 4
+EOS
+
 is MAIN-handler-combo(13, :x), chomp(q:to/EOS/), "combo, x-sums, any length";
 3 1 9
 3 2 8
@@ -63,3 +68,4 @@ is MAIN-handler-combo(13, 4, :x), chomp(q:to/EOS/), "combo, x-sums, specific len
 4 1 2 6
 4 1 3 5
 EOS
+

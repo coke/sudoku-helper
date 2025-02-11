@@ -16,10 +16,10 @@
   },
   "resources": [
   ],
-  "source-url": "git://github.com/coke/sudoku-helper.git",
+  "source-url": "https://github.com/coke/sudoku-helper.git",
   "tags": [
   ],
   "test-depends": [
   ],
-  "version": "0.9.1"
+  "version": "0.9.2"
 }

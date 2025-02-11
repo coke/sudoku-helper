@@ -7,11 +7,12 @@ unit class App::SudokuHelper;
 # :x - sequence must contain the number of digits present as a digit.
 
 our sub MAIN-handler-combo(Int $sum, Int $count?, Str :$n is copy = "", Bool :s(:$sandwich)=False, Bool :$sequence, Bool :$x=False) is export  {
-    $n = $n ~ "19" if $sandwich;
-
     my @counts = $count ?? [$count] !! 1..9;
 
     my @digits = (1..9).grep({ not $n.comb.grep($_)});
+    if $sandwich {
+        @digits = @digits[1..*-2];
+    }
 
     my @retvals;
 
