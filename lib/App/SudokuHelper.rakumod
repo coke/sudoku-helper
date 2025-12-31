@@ -6,7 +6,9 @@ unit class App::SudokuHelper;
 # $sandwich - if present, skip 1 and 9
 # :x - sequence must contain the number of digits present as a digit.
 
-our sub MAIN-handler-combo(Int $sum, Int $count?, Str :$n is copy = "", Bool :s(:$sandwich)=False, Bool :$sequence, Bool :$x=False) is export  {
+our proto MAIN-handler-combo(|) {*}
+
+our multi sub MAIN-handler-combo(Int $sum, Int $count?, Str :$n is copy = "", Bool :s(:$sandwich)=False, Bool :$sequence, Bool :$x=False) is export  {
     my @counts = $count ?? [$count] !! 1..9;
 
     my @digits = (1..9).grep({ not $n.comb.grep($_)});
@@ -43,4 +45,14 @@ our sub MAIN-handler-combo(Int $sum, Int $count?, Str :$n is copy = "", Bool :s(
         }
     }
     return @retvals.join("\n");
+}
+
+# "Cheat" and take the processed result of the individual calls, unprocess them, sort them, re-process
+our multi sub MAIN-handler-combo(Str $sum, Int $count?, Str :$n is copy = "", Bool :s(:$sandwich)=False, Bool :$sequence, Bool :$x=False) is export  {
+    my @retval;
+    for $sum.split(',') -> $item {
+        my $int-sum = $item.Int or die "invalid sum '$item' passed";
+        @retval.append: MAIN-handler-combo($int-sum, $count, :$n, :$sandwich, :$sequence, :$x).lines;
+    }
+    @retval.sort({.chars, .Str}).join("\n");
 }
