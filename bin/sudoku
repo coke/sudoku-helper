@@ -5,6 +5,6 @@ use App::SudokuHelper;
 # Allow our mode to be specified before the args.
 my %*SUB-MAIN-OPTS = :named-anywhere;
 
-sub MAIN("combo", Int $sum, Int $count?, Str :$n is copy = "", Bool :s(:$sandwich)=False, Bool :$sequence, Bool :$x=False) {
+sub MAIN("combo", Str $sum, Int $count?, Str :$n is copy = "", Bool :s(:$sandwich)=False, Bool :$sequence, Bool :$x=False) {
     say MAIN-handler-combo($sum, $count, :$n, :$sandwich, :$sequence, :$x);
 }
